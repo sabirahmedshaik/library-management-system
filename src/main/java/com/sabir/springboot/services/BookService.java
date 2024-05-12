@@ -1,17 +1,8 @@
 package com.sabir.springboot.services;
 
-import com.sabir.springboot.repositories.BookRepository;
-import com.sabir.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.sabir.springboot.dto.BookDto;
+import com.sabir.springboot.entities.Book;
 
-@Service
-public class BookService {
-
-    @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
+public interface BookService {
+    BookDto addBook(Book book);
 }
