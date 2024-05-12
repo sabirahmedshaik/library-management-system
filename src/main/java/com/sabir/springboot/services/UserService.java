@@ -1,12 +1,9 @@
 package com.sabir.springboot.services;
 
-import com.sabir.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.sabir.springboot.dto.UserDto;
+import com.sabir.springboot.entities.User;
 
-@Service
-public class UserService {
+public interface UserService {
+    UserDto addUser(User user);
 
-    @Autowired
-    private UserRepository userRepository;
 }
