@@ -50,4 +50,15 @@ public class BookController {
         bookService.deleteBook(book_id);
         return ResponseEntity.ok("Book is successfully deleted");
     }
+
+    // Build Borrow Book REST API
+    @PostMapping("/{book_id}/borrow/{user_id}")
+    public ResponseEntity<BookDto> borrowBook(@PathVariable("book_id") Long book_id, @PathVariable("user_id") Long user_id){
+        BookDto borrowedBook =  bookService.borrowBook(book_id, user_id);
+        if(borrowedBook != null){
+            return ResponseEntity.ok(borrowedBook);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
