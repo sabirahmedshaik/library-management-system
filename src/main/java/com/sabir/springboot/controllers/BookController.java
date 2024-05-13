@@ -61,4 +61,15 @@ public class BookController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    // Build Return Book REST API
+    @PostMapping("/{book_id}/return")
+    public ResponseEntity<BookDto> returnBook(@PathVariable("book_id") Long book_id){
+        BookDto returnedBook = bookService.returnBook(book_id);
+        if(returnedBook != null){
+            return ResponseEntity.ok(returnedBook);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
