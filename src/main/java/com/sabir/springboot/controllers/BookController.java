@@ -29,4 +29,11 @@ public class BookController {
         List<BookDto> books = bookService.getBooks();
         return ResponseEntity.ok(books);
     }
+
+    //Build Get Specific Book REST API
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDto> getBookById(@PathVariable("id") Long bookId){
+        BookDto book = bookService.getBookById(bookId);
+        return ResponseEntity.ok(book);
+    }
 }
