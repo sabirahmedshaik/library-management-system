@@ -2,7 +2,9 @@ package com.sabir.springboot.services.impl;
 
 import com.sabir.springboot.dto.BookDto;
 import com.sabir.springboot.entities.Book;
+import com.sabir.springboot.entities.User;
 import com.sabir.springboot.exception.BookException;
+import com.sabir.springboot.exception.UserException;
 import com.sabir.springboot.mapper.BookMapper;
 import com.sabir.springboot.repositories.BookRepository;
 import com.sabir.springboot.repositories.UserRepository;
@@ -38,14 +40,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto getBookById(Long bookId) {
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookException("Book not found"));
+                .orElseThrow(() -> new BookException("Book is not found with given id : " + bookId));
         return BookMapper.mapToBookDto(book);
     }
 
     @Override
     public BookDto updateBook(Long book_id, BookDto book) {
         Book existingBook = bookRepository.findById(book_id)
-                .orElseThrow(() -> new BookException("Book not found"));
+                .orElseThrow(() -> new BookException("Book is not found with given id : " + book_id));
         existingBook.setTitle(book.getTitle());
         existingBook.setAuthor(book.getAuthor());
         existingBook.setBorrowed(book.isBorrowed());
@@ -58,5 +60,26 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long book_id) {
         bookRepository.deleteById(book_id);
+    }
+
+    @Override
+    public BookDto borrowBook(Long book_id, Long user_id) {
+        Book book = bookRepository.findById(book_id)
+                .orElseThrow(() -> new BookException("Book is not found with given id : " + book_id));
+
+        User user = userRepository.findById(user_id)
+                .orElseThrow(() -> new UserException("User is not found with given id : " + user_id));
+
+        if(book != null && user != null){
+            if(!book.isBorrowed()){
+                book.setBorrowedBy(user);
+                book.setBorrowed(true);
+                Book savedBook = bookRepository.save(book);
+                return BookMapper.mapToBookDto(savedBook);
+            }else{
+                System.out.println("Book already borrowed");
+            }
+        }
+        return null;
     }
 }
