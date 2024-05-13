@@ -2,6 +2,7 @@ package com.sabir.springboot.services.impl;
 
 import com.sabir.springboot.dto.BookDto;
 import com.sabir.springboot.entities.Book;
+import com.sabir.springboot.exception.BookException;
 import com.sabir.springboot.mapper.BookMapper;
 import com.sabir.springboot.repositories.BookRepository;
 import com.sabir.springboot.repositories.UserRepository;
@@ -32,5 +33,12 @@ public class BookServiceImpl implements BookService {
     public List<BookDto> getBooks() {
         List<Book> books =  bookRepository.findAll();
         return books.stream().map((book) -> BookMapper.mapToBookDto(book)).collect(Collectors.toList());
+    }
+
+    @Override
+    public BookDto getBookById(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookException("Book not found"));
+        return BookMapper.mapToBookDto(book);
     }
 }
