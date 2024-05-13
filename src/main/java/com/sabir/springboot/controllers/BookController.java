@@ -36,4 +36,11 @@ public class BookController {
         BookDto book = bookService.getBookById(bookId);
         return ResponseEntity.ok(book);
     }
+
+    //Build Update the Book REST API
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDto> updateBook(@PathVariable("id") Long book_id, @RequestBody BookDto book){
+        BookDto updatedBook = bookService.updateBook(book_id, book);
+        return ResponseEntity.ok(updatedBook);
+    }
 }

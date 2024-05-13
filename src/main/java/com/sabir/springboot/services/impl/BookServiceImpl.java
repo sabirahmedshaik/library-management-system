@@ -41,4 +41,17 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new BookException("Book not found"));
         return BookMapper.mapToBookDto(book);
     }
+
+    @Override
+    public BookDto updateBook(Long book_id, BookDto book) {
+        Book existingBook = bookRepository.findById(book_id)
+                .orElseThrow(() -> new BookException("Book not found"));
+        existingBook.setTitle(book.getTitle());
+        existingBook.setAuthor(book.getAuthor());
+        existingBook.setBorrowed(book.isBorrowed());
+        existingBook.setBorrowedBy(book.getBorrowedBy());
+
+        Book updatedBook = bookRepository.save(existingBook);
+        return BookMapper.mapToBookDto(updatedBook);
+    }
 }
