@@ -43,4 +43,11 @@ public class BookController {
         BookDto updatedBook = bookService.updateBook(book_id, book);
         return ResponseEntity.ok(updatedBook);
     }
+
+    // Build Delete Book REST API
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable("id") Long book_id){
+        bookService.deleteBook(book_id);
+        return ResponseEntity.ok("Book is successfully deleted");
+    }
 }
