@@ -9,7 +9,7 @@ Rest Client should be able to:
   <li>Fetch specific book</li>
   <li>Update a book</li>
   <li>Delete a book</li>
-  <li>Barrow a book</li>
+  <li>Borrow a book</li>
   <li>Return a book</li>
 </ol>
 
@@ -29,5 +29,5 @@ REST APIs for Book Resource:
 | Post         | /api/books                         |  201 (Created) | Add the new book      |
 | Put          | /api/books/{id}                    |  200 (OK)      | Update a book         |
 | Delete       | /api/books/{id}                    |  200 (OK)      | Delete a book         |
-| Post         | /api/books/{bookId}/barrow/{userId}|  201 (Created) | Barrow a book         |
+| Post         | /api/books/{bookId}/borrow/{userId}|  201 (Created) | Borrow a book         |
 | Post         | /api/books/{bookId}/return         |  201 (Created) | Return a book         |
